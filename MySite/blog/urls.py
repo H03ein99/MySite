@@ -3,5 +3,5 @@ from django.urls import path
 
 urlpatterns = [
     path('', views.home, name='blog-home'),
-    path('<int:id>', views.single, name='blog-single'),
+    path('single/', views.single, name='blog-single'),
 ]

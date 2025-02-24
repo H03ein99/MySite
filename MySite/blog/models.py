@@ -7,7 +7,7 @@ class Post(models.Model):
             on_delete=models.CASCADE,
             default = -1
         )
-        image = models.ImageField(upload_to='uploads/')
+        image = models.ImageField(upload_to=settings.MEDIA_ROOT)
         title = models.CharField(max_length=100)
         content = models.TextField()
         # category 

@@ -18,7 +18,7 @@ class Post(models.Model):
         created_date = models.DateField(auto_now_add=True)
         updated_date = models.DateField(auto_now=True)
         class Meta:
-            ordering = ['-created_dates']
+            ordering = ["-created_date"]
         def __str__(self):
             return f"{self.author} - {self.title} - {self.created_date}"
     

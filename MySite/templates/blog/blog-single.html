@@ -95,6 +95,7 @@
           </div>
           <div class="navigation-area">
             <div class="row">
+              {% if prev %}
               <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
                 <div class="thumb">
                   <a href="{% url 'blog-single' prev.id%}"><img class="img-fluid" src="{{prev.image.url}}" alt="{{prev.title}}" /></a>
@@ -107,6 +108,8 @@
                   <a href="{% url 'blog-single' prev.id%}"><h4>{{prev.title}}</h4></a>
                 </div>
               </div>
+              {% endif %}
+              {% if next %}
               <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
                 <div class="detials">
                   <p>Next Post</p>
@@ -119,6 +122,7 @@
                   <a href="{% url 'blog-single' next.id%}"><img class="img-fluid" src="{{next.image.url}}" alt="" /></a>
                 </div>
               </div>
+              {% endif %}
             </div>
           </div>
           <div class="comments-area">

@@ -17,8 +17,8 @@ def home(request):
 def single(request, id):
     post = get_object_or_404(Post, id=id, status=1, published_date__lte=today)
     popular_posts = Post.objects.all().filter(status=1).order_by('-counted_view')
-    previous = post.previous_post()
-    next = post.next_post()
+    previous = Post.objects.filter(status=1, published_date__lte=today, id__lt=post.id).order_by('-id').first()
+    next = Post.objects.filter(status=1, published_date__lte=today, id__gt=post.id).order_by('id').first()
     context = {
         'post' : post,
         'popular_posts' :popular_posts,

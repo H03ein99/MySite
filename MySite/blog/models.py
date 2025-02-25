@@ -1,6 +1,16 @@
 from django.db import models
 from django.conf import settings
 # Create your models here.
+
+class Category(models.Model):
+    name = models.CharField( max_length=250)
+
+    def __str__(self):
+        return self.name
+    
+
+
+
 class Post(models.Model):
         author =models.ForeignKey(
             settings.AUTH_USER_MODEL,
@@ -10,7 +20,7 @@ class Post(models.Model):
         image = models.ImageField(upload_to=settings.MEDIA_ROOT)
         title = models.CharField(max_length=100)
         content = models.TextField()
-        # category 
+        category = models.ManyToManyField(Category)
         # tag
         counted_view = models.PositiveIntegerField(default=0)
         status = models.BooleanField(default=False)
@@ -22,35 +32,4 @@ class Post(models.Model):
         def __str__(self):
             return f"{self.author} - {self.title} - {self.created_date}"
 
-        def previous_post(self):
-            id = self.id - 1
-            if(id==0):
-                post = Post.objects.get(id=1)
-                if post.status == 1:
-                    return post
-                else:
-                    return post.next_post()    
-            post = Post.objects.get(id=id)    
-            while(post.status==0):
-                id -= 1
-                if(id==0):
-                    return Post.objects.get(id=1)   
-                post = Post.objects.get(id=id)
-            return post    
 
-        def next_post(self):
-            last_id = len(Post.objects.all())
-            id = self.id + 1
-            if(id>last_id):
-                return Post.objects.get(id= last_id)
-            post = Post.objects.get(id=id)
-            while(post.status==0):
-                id += 1
-                if(id>last_id):
-                    post = Post.objects.get(id= last_id)
-                    if post.status==1:
-                        return post
-                    else:
-                        return post.previous_post()    
-                post = Post.objects.get(id=id)
-            return post

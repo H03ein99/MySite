@@ -117,9 +117,9 @@
               <div class="feature-img">
                 <img class="img-fluid" src="{{post.image.url}}" alt="{{post.title}}" />
               </div>
-              <a class="posts-title" href="{% url 'blog-single'%}"><h3>{{post.title}}</h3></a>
+              <a class="posts-title" href="{% url 'blog-single' post.id%}"><h3>{{post.title}}</h3></a>
               <p class="excert">{{post.content}}</p>
-              <a href="{% url 'blog-single'%}" class="primary-btn">View More</a>
+              <a href="{% url 'blog-single' post.id %}" class="primary-btn">View More</a>
             </div>
           </div>
           {% endfor %}
@@ -178,47 +178,25 @@
               </ul>
               <p>Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits detractors.</p>
             </div>
+            
             <div class="single-sidebar-widget popular-post-widget">
               <h4 class="popular-title">Popular Posts</h4>
               <div class="popular-post-list">
+                {% for post in popular_posts %}
                 <div class="single-post-list d-flex flex-row align-items-center">
                   <div class="thumb">
-                    <img class="img-fluid" src="{% static 'img/blog/pp1.jpg' %}" alt="" />
+                    <img class="img-fluid" src="{{post.image.url}}" alt="{{post.title}}" />
                   </div>
                   <div class="details">
-                    <a href="{% url 'blog-single'%}"><h6>Space The Final Frontier</h6></a>
-                    <p>02 Hours ago</p>
+                    <a href="{% url 'blog-single' post.id %}"><h6>{{post.title}}</h6></a>
+                    <p>{{post.published_date}}</p>
                   </div>
                 </div>
-                <div class="single-post-list d-flex flex-row align-items-center">
-                  <div class="thumb">
-                    <img class="img-fluid" src="{% static 'img/blog/pp2.jpg' %}" alt="" />
-                  </div>
-                  <div class="details">
-                    <a href="{% url 'blog-single'%}"><h6>The Amazing Hubble</h6></a>
-                    <p>02 Hours ago</p>
-                  </div>
-                </div>
-                <div class="single-post-list d-flex flex-row align-items-center">
-                  <div class="thumb">
-                    <img class="img-fluid" src="{% static 'img/blog/pp3.jpg' %}" alt="" />
-                  </div>
-                  <div class="details">
-                    <a href="{% url 'blog-single'%}"><h6>Astronomy Or Astrology</h6></a>
-                    <p>02 Hours ago</p>
-                  </div>
-                </div>
-                <div class="single-post-list d-flex flex-row align-items-center">
-                  <div class="thumb">
-                    <img class="img-fluid" src="{% static 'img/blog/pp4.jpg' %}" alt="" />
-                  </div>
-                  <div class="details">
-                    <a href="{% url 'blog-single'%}"><h6>Asteroids telescope</h6></a>
-                    <p>02 Hours ago</p>
-                  </div>
-                </div>
+                {% endfor %}
+                
               </div>
             </div>
+            
             <div class="single-sidebar-widget ads-widget">
               <a href="#"><img class="img-fluid" src="{% static 'img/blog/ads-banner.jpg' %}" alt="" /></a>
             </div>

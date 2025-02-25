@@ -11,3 +11,4 @@ def home(request):
 
 def single(request):
     return render(request, 'blog/blog-single.html')    
+

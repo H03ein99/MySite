@@ -14,9 +14,13 @@ def home(request):
 def single(request, id):
     post = get_object_or_404(Post, id=id, status=1)
     popular_posts = Post.objects.all().filter(status=1).order_by('-counted_view')
+    previous = post.previous_post()
+    next = post.next_post()
     context = {
         'post' : post,
         'popular_posts' :popular_posts,
+        'prev': previous,
+        'next': next,
     }
     if post is not None:
         post.counted_view += 1

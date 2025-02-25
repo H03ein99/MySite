@@ -21,4 +21,28 @@ class Post(models.Model):
             ordering = ["-created_date"]
         def __str__(self):
             return f"{self.author} - {self.title} - {self.created_date}"
-    
+
+        def previous_post(self):
+            id = self.id - 1
+            if(id==0):
+                return Post.objects.get(id=1)
+            post = Post.objects.get(id=id)    
+            while(post.status==0):
+                id -= 1
+                if(id==0):
+                    return Post.objects.get(id=1)   
+                post = Post.objects.get(id=id)
+            return post    
+
+        def next_post(self):
+            last_id = len(Post.objects.all())
+            id = self.id + 1
+            if(id>last_id):
+                return Post.objects.get(id= last_id)
+            post = Post.objects.get(id=id)
+            while(post.status==0):
+                id += 1
+                if(id>last_id):
+                    return Post.objects.get(id= last_id)
+                post = Post.objects.get(id=id)
+            return post

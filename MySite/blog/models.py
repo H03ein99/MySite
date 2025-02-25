@@ -25,7 +25,11 @@ class Post(models.Model):
         def previous_post(self):
             id = self.id - 1
             if(id==0):
-                return Post.objects.get(id=1)
+                post = Post.objects.get(id=1)
+                if post.status == 1:
+                    return post
+                else:
+                    return post.next_post()    
             post = Post.objects.get(id=id)    
             while(post.status==0):
                 id -= 1
@@ -43,6 +47,10 @@ class Post(models.Model):
             while(post.status==0):
                 id += 1
                 if(id>last_id):
-                    return Post.objects.get(id= last_id)
+                    post = Post.objects.get(id= last_id)
+                    if post.status==1:
+                        return post
+                    else:
+                        return post.previous_post()    
                 post = Post.objects.get(id=id)
             return post

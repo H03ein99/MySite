@@ -3,7 +3,7 @@ from blog.models import Post
 from django.utils import timezone
 
 # Create your views here.
-today = timezone.now().date()
+today = timezone.now()
 def home(request):
     
     posts = Post.objects.filter(status=1, published_date__lte=today).order_by('-published_date')

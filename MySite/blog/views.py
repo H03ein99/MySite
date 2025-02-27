@@ -33,6 +33,16 @@ def single(request, id):
         post.save()
     return render(request, 'blog/blog-single.html', context)    
 
+def search(request):
+    posts = Post.objects.filter(status=1, published_date__lte=today)
+    if request.method == 'GET':
+        if s := request.GET.get('s'):
+            posts = posts.filter(content__contains=s)
+    context = {'posts': posts}
+    return render(request, 'blog/blog-home.html', context)        
+
+
+
 # def test(request, id):
 #     post = Post.objects.filter(id=id, status=1)[0]
 #     context = {'post': post} 

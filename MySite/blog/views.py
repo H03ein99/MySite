@@ -4,9 +4,10 @@ from django.utils import timezone
 
 # Create your views here.
 today = timezone.now()
-def home(request):
-    
+def home(request, cat_name=None):
     posts = Post.objects.filter(status=1, published_date__lte=today).order_by('-published_date')
+    if cat_name:
+        posts = posts.filter(category__name=cat_name)
     popular_posts = Post.objects.all().filter(status=1).order_by('-counted_view')[:3]
     context = {
         'posts' : posts,

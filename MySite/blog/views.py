@@ -1,15 +1,25 @@
 from django.shortcuts import render, get_object_or_404
 from blog.models import Post
 from django.utils import timezone
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 today = timezone.now()
-def home(request, cat_name=None, author=None):
+def home(request, **kwargs):
     posts = Post.objects.filter(status=1, published_date__lte=today).order_by('-published_date')
-    if cat_name:
-        posts = posts.filter(category__name=cat_name)
-    if author:
-        posts = posts.filter(author__username=author)    
+    if kwargs.get('cat_name') != None:
+        posts = posts.filter(category__name=kwargs['cat_name'])
+    if kwargs.get('author') != None:
+        posts = posts.filter(author__username=kwargs['author'])    
+    paginator = Paginator(posts, 3)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)        
+ 
     popular_posts = Post.objects.all().filter(status=1).order_by('-counted_view')[:3]
     context = {
         'posts' : posts,

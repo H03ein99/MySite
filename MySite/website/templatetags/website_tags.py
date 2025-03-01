@@ -13,3 +13,4 @@ def blog_recent_posts():
         'posts': posts,
         
     }
+

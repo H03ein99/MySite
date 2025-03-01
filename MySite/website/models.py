@@ -8,7 +8,11 @@ class Contact(models.Model):
     text = models.TextField()
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
-
+    # if I want to always save name as unknown this method will work too.
+    # def save(self, *args, **kwargs):
+    #     self.name = "unknown"
+    #     super().save(*args, **kwargs)
+    
     
 class Newsletter(models.Model):
     email = models.EmailField()    

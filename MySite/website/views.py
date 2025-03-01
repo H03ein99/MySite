@@ -14,7 +14,9 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(data = request.POST)
         if form.is_valid():
-            form.save()
+            contact = form.save(commit = False)
+            contact.name = 'unknown'
+            contact.save()
             messages.add_message(request, messages.SUCCESS, 'Your message has been sent successfuly!')
         else:
             messages.add_messafe(request, messages.ERROR, 'Some error occurred during submiting your message. please try again.')    

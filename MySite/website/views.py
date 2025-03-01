@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from website.forms import ContactForm, NewsletterForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
@@ -18,6 +18,7 @@ def contact(request):
             contact.name = 'unknown'
             contact.save()
             messages.success(request, 'Your message has been sent successfuly!')
+            return redirect('/contact')
         else:
             messages.error(request, 'Some error occurred during submiting your message. please try again.')   
                 

@@ -7,7 +7,7 @@
             <img class="img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}" />
           </div>
           <div class="details">
-            <a href="{% url 'blog-single' post.id %}"><h6>{{ post.title }}</h6></a>
+            <a href="{% url 'blog:blog-single' post.id %}"><h6>{{ post.title }}</h6></a>
             <p>{{ post.published_date|date:'d M Y' }}</p>
           </div>
         </div>

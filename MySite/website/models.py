@@ -10,4 +10,9 @@ class Contact(models.Model):
     updated_date = models.DateField(auto_now=True)
 
     
+class Newsletter(models.Model):
+    email = models.EmailField()    
+
+    def __str__(self):
+        return self.email
     

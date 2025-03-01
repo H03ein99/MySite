@@ -17,9 +17,9 @@ def contact(request):
             contact = form.save(commit = False)
             contact.name = 'unknown'
             contact.save()
-            messages.add_message(request, messages.SUCCESS, 'Your message has been sent successfuly!')
+            messages.success(request, 'Your message has been sent successfuly!')
         else:
-            messages.add_messafe(request, messages.ERROR, 'Some error occurred during submiting your message. please try again.')    
+            messages.error(request, 'Some error occurred during submiting your message. please try again.')   
                 
           
     return render(request, 'website/contact.html')       

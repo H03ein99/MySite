@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 # Create your models here.
 
 class Category(models.Model):
@@ -32,7 +33,14 @@ class Post(models.Model):
         updated_date = models.DateTimeField(auto_now=True)
         class Meta:
             ordering = ["-created_date"]
+
+            
         def __str__(self):
             return f"{self.author} - {self.title} - {self.created_date}"
 
+            
+        def get_absolute_url(self):
+            
+            return reverse("blog:blog-single", kwargs={"id": self.id})
+        
 

@@ -21,9 +21,11 @@ def contact(request):
             return redirect('/contact')
         else:
             messages.error(request, 'Some error occurred during submiting your message. please try again.')   
-                
+    else:
+        form = ContactForm()
+        context = {'form': form}            
           
-    return render(request, 'website/contact.html')       
+    return render(request, 'website/contact.html', context)       
 
 def newsletter(request):
     if request.method == 'POST':

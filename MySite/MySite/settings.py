@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django.contrib.humanize',
     'django_extensions',
     'django.contrib.sites',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "taggit",
     'ckeditor',
     'ckeditor_uploader',
+    'captcha',
 ]
 # sites framework
 SITE_ID = 2
@@ -71,6 +73,13 @@ CKEDITOR_CONFIGS = {
         ]),
     },
 }
+
+# captcha settings
+CAPTCHA_LENGTH = 5
+CAPTCHA_FONT_STYLE = 30
+CAPTCHA_BACKGROUND_COLOR = '#f0f0f0'
+CAPTCHA_IMAGE_SIZE = (200, 80)
+CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs',)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

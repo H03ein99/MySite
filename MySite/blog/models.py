@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from taggit.managers import TaggableManager
+from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 
 class Category(models.Model):
@@ -24,7 +25,7 @@ class Post(models.Model):
         )
         image = models.ImageField(upload_to=settings.MEDIA_ROOT)
         title = models.CharField(max_length=100)
-        content = models.TextField()
+        content = RichTextUploadingField()
         category = models.ManyToManyField(Category)
         tag = TaggableManager()
         counted_view = models.PositiveIntegerField(default=0)

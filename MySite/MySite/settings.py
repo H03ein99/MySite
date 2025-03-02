@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'robots',
     "debug_toolbar",
     "taggit",
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 # sites framework
 SITE_ID = 2
@@ -54,6 +56,21 @@ SITE_ID = 2
 # robots framework
 ROBOTS_USE_HOST = False
 ROBOTS_USE_SITEMAP = False
+
+
+# ckeditor settings
+
+CKEDITOR_UPLOAD_PATH="uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+        'extraPlugins': ','.join([
+            'uploadimage'
+        ]),
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

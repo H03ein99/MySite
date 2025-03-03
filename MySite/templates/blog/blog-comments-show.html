@@ -12,7 +12,7 @@
           <div class="desc">
             <h5><a href="#">{{comment.name}}</a></h5>
             <p class="date">{{comment.created_date|naturaltime}}</p>
-            <p class="comment">{{comment.message}}</p>
+            <p class="comment">{{comment.message|safe}}</p>
           </div>
         </div>
         {% comment %} <div class="reply-btn">

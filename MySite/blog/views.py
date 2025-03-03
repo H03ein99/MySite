@@ -31,7 +31,7 @@ def home(request, **kwargs):
 
 def single(request, id):
     post = get_object_or_404(Post, id=id, status=1, published_date__lte=today)
-    comments = Comment.objects.filter(post= post.id)
+    comments = Comment.objects.filter(post= post.id, approved=True)
     popular_posts = Post.objects.all().filter(status=1).order_by('-counted_view')
     previous = Post.objects.filter(status=1, published_date__lte=today, id__lt=post.id).order_by('-id').first()
     next = Post.objects.filter(status=1, published_date__lte=today, id__gt=post.id).order_by('id').first()

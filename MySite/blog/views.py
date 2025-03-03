@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Post, Comment
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from blog.forms import CommentForm
+from django.contrib import messages
 # Create your views here.
 today = timezone.now()
 def home(request, **kwargs):
@@ -30,17 +31,33 @@ def home(request, **kwargs):
     return render(request, 'blog/blog-home.html', context)
 
 def single(request, id):
+    if request.method == 'POST':
+        
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Comment sent successfully. Your comment will be shown after admin approval.')
+            return redirect('blog:blog-single', id=id)
+        else:
+            
+            messages.error(request, 'Try Again')
+            return redirect('blog:blog-single', id=id)
+        
+           
+           
     post = get_object_or_404(Post, id=id, status=1, published_date__lte=today)
     comments = Comment.objects.filter(post= post.id, approved=True)
     popular_posts = Post.objects.all().filter(status=1).order_by('-counted_view')
     previous = Post.objects.filter(status=1, published_date__lte=today, id__lt=post.id).order_by('-id').first()
     next = Post.objects.filter(status=1, published_date__lte=today, id__gt=post.id).order_by('id').first()
+    form = CommentForm()
     context = {
         'post' : post,
         'popular_posts' :popular_posts,
         'prev': previous,
         'next': next,
-        'comments': comments
+        'comments': comments,
+        'form': form
     }
     if post is not None:
         post.counted_view += 1

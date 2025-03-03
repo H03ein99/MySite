@@ -22,6 +22,7 @@ from django.contrib.sitemaps.views import sitemap
 from website.sitemaps import StaticViewSitemap
 from blog.sitemaps import BlogSitemap
 from debug_toolbar.toolbar import debug_toolbar_urls
+from blog.feeds import LatestEntriesFeed
 
 
 sitemaps = {
@@ -30,13 +31,14 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls), 
     path('', include('website.urls')),
     path('blog/', include('blog.urls')),
     path("sitemap.xml",sitemap,{"sitemaps": sitemaps},name="django.contrib.sitemaps.views.sitemap"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('robots.txt', include('robots.urls')),
     path('captcha/', include('captcha.urls')),
+    path("rss/feed/", LatestEntriesFeed()),
 
 ] + debug_toolbar_urls()
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

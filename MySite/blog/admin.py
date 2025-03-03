@@ -6,7 +6,9 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ['author', 'title', 'counted_view', 'created_date', 'published_date','id' ]
 
 class CommentAdmin(admin.ModelAdmin):
-    
+    date_hierarchi = 'created_date'
+    empty_value_display = '---'
+    list_filter = ('post', 'approved',)
     list_display = ['post', 'name', 'approved', 'created_date', ]
 
 admin.site.register(Comment, CommentAdmin)

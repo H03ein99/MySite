@@ -1,0 +1,24 @@
+{% load static %}
+{% load humanize %}
+<div class="comments-area">
+    <h4>{{comments.count}} Comments</h4>
+    {% for comment in comments %}
+    <div class="comment-list">
+      <div class="single-comment justify-content-between d-flex">
+        <div class="user justify-content-between d-flex">
+          <div class="thumb">
+            <img src="{% static 'img/user-sample.png' %}" alt="{{user.name}}" />
+          </div>
+          <div class="desc">
+            <h5><a href="#">{{comment.name}}</a></h5>
+            <p class="date">{{comment.created_date|naturaltime}}</p>
+            <p class="comment">{{comment.message}}</p>
+          </div>
+        </div>
+        {% comment %} <div class="reply-btn">
+          <a href="" class="btn-reply text-uppercase">reply</a>
+        </div> {% endcomment %}
+      </div>
+    </div>
+    {% endfor %}
+</div>

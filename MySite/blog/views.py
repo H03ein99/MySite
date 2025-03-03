@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from blog.models import Post
+from blog.models import Post, Comment
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -31,6 +31,7 @@ def home(request, **kwargs):
 
 def single(request, id):
     post = get_object_or_404(Post, id=id, status=1, published_date__lte=today)
+    comments = Comment.objects.filter(post= post.id)
     popular_posts = Post.objects.all().filter(status=1).order_by('-counted_view')
     previous = Post.objects.filter(status=1, published_date__lte=today, id__lt=post.id).order_by('-id').first()
     next = Post.objects.filter(status=1, published_date__lte=today, id__gt=post.id).order_by('id').first()
@@ -39,6 +40,7 @@ def single(request, id):
         'popular_posts' :popular_posts,
         'prev': previous,
         'next': next,
+        'comments': comments
     }
     if post is not None:
         post.counted_view += 1

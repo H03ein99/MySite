@@ -1,5 +1,5 @@
 from django import template
-from blog.models import Post, Category
+from blog.models import Post, Category, Comment
 from django.utils import timezone
 
 today = timezone.now()
@@ -39,3 +39,11 @@ def blogcats():
         'categories': cats,
     }
 
+@register.simple_tag
+def comment_counter(id):
+    post = Post.objects.get(id=id)
+    res = Comment.objects.filter(post=post.id).count()
+    if res>1:
+        return f"{res} Comments"
+    else:
+        return f"{res} Comment"    

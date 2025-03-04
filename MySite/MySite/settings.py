@@ -83,6 +83,9 @@ CAPTCHA_BACKGROUND_COLOR = '#f0f0f0'
 CAPTCHA_IMAGE_SIZE = (200, 80)
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs',)
 
+
+# email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

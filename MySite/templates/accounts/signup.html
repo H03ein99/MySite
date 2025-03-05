@@ -1,6 +1,8 @@
 {% extends 'base-acc.html' %}
 {% load static %}
 {% block content %}
+{% block title %}Sign Up{% endblock title %}
+{% block process %}SignUp Page{% endblock process %}
   <form action="{% url 'signup' %}" class="signin-form" method="post">
     {% csrf_token %}
 

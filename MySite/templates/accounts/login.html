@@ -1,9 +1,11 @@
 {% extends 'base-acc.html' %}
 {% load static %}
+{% block title %}Login{% endblock title %}
+{% block process %}Login Page{% endblock process %}
 {% block content %}
   <div class="d-flex">
     <div class="w-100">
-      <h3 class="mb-4">Log in</h3>
+     
     </div>
     <div class="w-100">
       <p class="social-media d-flex justify-content-end">
@@ -16,7 +18,7 @@
     {% csrf_token %}
 
     <div class="form-group mb-3">
-      <label class="label" name="username" for="name">Username</label>
+      <label class="label" name="username" for="name">Username or Email</label>
       <input type="text" name="username" class="form-control" placeholder="Username" required />
     </div>
     <div class="form-group mb-3">

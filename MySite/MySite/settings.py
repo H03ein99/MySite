@@ -11,21 +11,21 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+# Initialize environ
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load the .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a!id*ofr4c#f9o(bd95eu+!+w7bc3%7jzh&3hnz_t=5wm*b$pw'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -53,8 +53,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'captcha',
 ]
-# sites framework
-SITE_ID = 2
+
 
 
 # robots framework
@@ -84,8 +83,15 @@ CAPTCHA_IMAGE_SIZE = (200, 80)
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs',)
 
 
-# email settings
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Gmail's SMTP server
+EMAIL_PORT = 587  # Port for TLS
+EMAIL_USE_TLS = True  # Use TLS for secure connection
+EMAIL_HOST_USER = 'djangocourse7@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')    # Your Gmail app password (not your regular password)
 
 
 MIDDLEWARE = [
@@ -120,15 +126,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'MySite.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
@@ -166,10 +163,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 import os
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ BASE_DIR / "static" ]
-STATIC_ROOT = "static_root"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -182,3 +177,4 @@ INTERNAL_IPS = [
     "127.0.0.1",
     
 ]
+

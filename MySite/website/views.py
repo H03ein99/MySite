@@ -37,3 +37,8 @@ def newsletter(request):
     else:
         messages.add_message(request, messages.ERROR, 'We had a problem while adding your email address. please try again.')           
         return HttpResponseRedirect("/")
+
+
+# coming soon: just activate during maintenance or pre-launch page        
+def coming_soon(request):
+    return render(request, 'coming_soon.html')

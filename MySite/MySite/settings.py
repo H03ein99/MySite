@@ -16,6 +16,12 @@ import environ
 # Initialize environ
 env = environ.Env()
 
+# static and media url
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -52,8 +58,13 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'captcha',
+    'compressor',
 ]
-
+# compressor
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True  # Set to True for pre-compressing in production
+COMPRESS_ROOT = BASE_DIR / 'static_root'  # Use the same directory as STATIC_ROOT
+COMPRESS_URL = STATIC_URL    # Use the same URL prefix as STATIC_URL
 
 
 # robots framework
@@ -161,9 +172,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-import os
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+
 
 
 # Default primary key field type
@@ -182,3 +191,10 @@ AUTHENTICATION_BACKENDS = [
     'accounts.backends.EmailOrUsernameModelBackend',  # Your custom backend
     'django.contrib.auth.backends.ModelBackend',  # Default backend (fallback)
 ]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
